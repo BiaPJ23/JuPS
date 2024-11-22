@@ -10,6 +10,6 @@ def about(request):
     context = {}
     return render(request, 'staticpages/about.html', context)
 
-def about(request):
+def login(request):
     context = {}
     return render(request, 'staticpages/login.html', context)

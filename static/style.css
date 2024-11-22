@@ -2,7 +2,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Tenorite', sans-serif;
     background-color: #000; /* Fundo preto */
     color: #fff; /* Texto branco */
 }
@@ -94,7 +94,6 @@ header {
     display: block; 
 }
 
-
 #conteiner-principal {
     padding: 20px;
 }
@@ -175,4 +174,52 @@ footer small {
     max-width: 100%; /* Imagem responsiva */
     border-radius: 10px; /* Bordas arredondadas */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+#destaques {
+    background-color: #111;
+    text-align: center;
+    padding: 50px 20px;
+    margin-top: 50px;
+}
+
+.highlight-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.highlight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff; /* Preto para os números */
+}
+
+.label {
+    font-size: 1rem;
+    color: #fff; /* Cinza para o texto abaixo */
+    margin-top: 10px;
+}
+
+#destaques::after {
+    content: "";
+    display: block;
+    height: 20px;
+}
+
+#sobre h2 {
+    font-family: 'Tenorite', sans-serif;
+    font-size: 2.3rem;
+}
+
+#sobre p, #sobre li {
+    font-family: 'Tenorite', sans-serif;
+    font-size: 1.3rem;
+    line-height: 1.6; /* Opcional: melhora a legibilidade */
 }

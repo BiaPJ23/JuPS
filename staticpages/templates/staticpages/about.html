@@ -1,9 +1,44 @@
 {% extends 'base.html' %}
 
 {% block title %}
-login
+Sobre
 {% endblock title %}
 
 {% block content %}
-<h2>Futura pagina de login</h2>
+<main id="conteiner-principal">
+    <section id="sobre">
+        <h2>Sobre o Projeto Jupiter</h2>
+        <p>O Projeto Jupiter é um grupo de foguetes da POLI-USP fundado em 2015, e nascido do grupo PET Mecânica. </p>
+        <p>O nosso processo seletivo é composto por 3 etapas obrigatórias:
+            <li>Palestra institucional </li>
+            <li>Dinâmica de grupo </li>
+            <li>Entrevista </li>
+            <p>Na palestra, você aprenderá sobre o Projeto Jupiter e as suas áreas, 
+            conhecendo melhor o trabalho de cada uma, além dos objetivos e valores da equipe. 
+            Assim, você poderá saber qual área é mais interessante para você. Já na dinâmica em grupo, 
+            você participará de uma atividade com os outros candidatos, onde você terá de trabalhar em equipe 
+            e expor suas ideias. Nela avaliaremos como você interage com outras pessoas no espaço de trabalho. 
+            Por fim, na entrevista buscamos aprender mais sobre você e entender como você se encaixa no Jupiter.
+            </p>
+        </p>
+    </section>
+
+    <!-- Seção de destaques -->
+    <section id="destaques">
+        <div class="highlight-container">
+            <div class="highlight">
+                <span class="number">+100</span>
+                <span class="label">Membros</span>
+            </div>
+            <div class="highlight">
+                <span class="number">13</span>
+                <span class="label">Lançamentos</span>
+            </div>
+            <div class="highlight">
+                <span class="number">8</span>
+                <span class="label">Anos de atuação</span>
+            </div>
+        </div>
+    </section>
+</main>
 {% endblock content %}
