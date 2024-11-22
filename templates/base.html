@@ -1,0 +1,49 @@
+{% load static %} 
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}{% endblock %} | JUPS
+    </title>
+    <link href="https://fonts.cdnfonts.com/css/nasa" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <header id="cabecalho-principal">
+        <nav id="navegacao-principal">
+            <ul>
+                <li>
+                    <a href="{% url 'index' %}" id="logo-titulo">
+                        <span class="titulo-principal">JUPS</span>
+                        <span class="subtitulo">processo seletivo do Projeto Jupiter</span>
+                    </a>                    
+                </li>
+            </ul>
+            <div id="links-direita">
+                <a href="{% url 'login' %}" id="link-login">Login</a>
+                <span>|</span>
+                <a href="{% url 'about' %}" id="link-sobre">Sobre</a>
+                <div id="logo-extrema-direita">
+                    <img src="{% static 'logo.svg' %}" alt="Logo Projeto Jupiter" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main id="conteiner-principal">
+        {% block content %}
+        {% endblock content %}
+    </main>
+    <footer id="rodape-principal">
+        <p>
+            <small>Copyright 2024</small>
+        </p>
+    </footer>
+</body>
+
+</html>

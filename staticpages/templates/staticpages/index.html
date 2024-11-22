@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Página Inicial
+{% endblock title %}
+
+{% block content %}
+<main id="conteiner-principal">
+    <section id="informacoes-gerais">
+        <div id="caixa-esquerda">
+            <h2>Informações gerais</h2>
+            <ul>
+                <li>🚀 Nós somos o grupo de foguetemodelismo da POLI-USP</li>
+                <li>🚀 Nosso processo seletivo é composto por três fases obrigatórias: palestra, dinâmica e entrevista.</li>
+                <li>🚀 As áreas abertas para inscrição são: Marketing, Financeiro, Aerodinâmica, Propulsão, Recuperação e Cargas Experimentais</li>
+                <li>🚀 Para se inscrever no processo seletivo de 2025.1, clique no botão abaixo</li>
+            </ul>
+            <button id="btn-inscreva-se">Inscreva-se</button>
+        </div>
+        <div id="caixa-direita">
+            <img src="{% static 'foguete.svg' %}" alt="Foguete sendo lançado" />
+        </div>
+    </section>
+</main>
+{% endblock content %}
