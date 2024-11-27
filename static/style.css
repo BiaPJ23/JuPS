@@ -1,9 +1,11 @@
 /* Reset básico */
 body {
+    display: flex;
+    flex-direction: column;
     margin: 0;
     padding: 0;
     font-family: 'Tenorite', sans-serif;
-    background-color: #000; /* Fundo preto */
+    background-color: #000000; /* Fundo preto */
     color: #fff; /* Texto branco */
 }
 
@@ -120,6 +122,7 @@ footer small {
     max-width: 1200px; /* Limite da largura */
 }
 
+
 /* Caixa da esquerda (informações gerais) */
 #caixa-esquerda {
     width: 50%; /* Ocupa metade da largura */
@@ -174,6 +177,21 @@ footer small {
     max-width: 100%; /* Imagem responsiva */
     border-radius: 10px; /* Bordas arredondadas */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+@media screen and (max-width: 800px) {
+    #informacoes-gerais{
+        flex-direction: column;
+        align-items: center;
+    }
+    #caixa-esquerda{
+        order: 1;
+        width: 100%;
+    }   
+    #caixa-direita{
+        order: 2;
+        width: 100%;
+    } 
 }
 
 #destaques {
