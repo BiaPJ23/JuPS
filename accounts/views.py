@@ -1,8 +1,54 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from .forms import CustomUserCreationForm
-from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .models import Aviso
+from .forms import AvisoInternoForm, AvisoExternoForm
+
+@login_required
+def avisos_dashboard(request):
+    if request.user.profile.user_type != 'membro':
+        return redirect('dashboard')
+
+    # Formulários separados para internos e externos
+    form_interno = AvisoInternoForm()
+    form_externo = AvisoExternoForm()
+
+    if request.method == 'POST':
+        if 'publicar_interno' in request.POST:  # Verifica qual formulário foi submetido
+            form_interno = AvisoInternoForm(request.POST)
+            if form_interno.is_valid():
+                aviso = form_interno.save(commit=False)
+                aviso.autor = request.user
+                aviso.tipo = 'interno'
+                aviso.save()
+                return redirect('avisos_dashboard')
+        elif 'publicar_externo' in request.POST:
+            form_externo = AvisoExternoForm(request.POST)
+            if form_externo.is_valid():
+                aviso = form_externo.save(commit=False)
+                aviso.autor = request.user
+                aviso.tipo = 'externo'
+                aviso.save()
+                return redirect('avisos_dashboard')
+
+    # Listar avisos internos e externos
+    avisos_internos = Aviso.objects.filter(tipo='interno').order_by('-data_criacao')
+    avisos_externos = Aviso.objects.filter(tipo='externo').order_by('-data_criacao')
+
+    context = {
+        'form_interno': form_interno,
+        'form_externo': form_externo,
+        'avisos_internos': avisos_internos,
+        'avisos_externos': avisos_externos,
+    }
+    print(form_interno.as_table())
+    print(form_interno.errors)
+
+
+    return render(request, 'dashboard.html', context)
+
 
 def signup(request):
     if request.method == 'POST':
@@ -24,3 +70,23 @@ def signup(request):
         'form': form,
         'error_messages': error_messages,
     })
+
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+@login_required
+def palestras(request):
+    return render(request, 'palestras.html')
+
+@login_required
+def dinamicas(request):
+    return render(request, 'dinamicas.html')
+
+@login_required
+def entrevistas(request):
+    return render(request, 'entrevistas.html')
+
+@login_required
+def meu_perfil(request):
+    return render(request, 'meu_perfil.html')

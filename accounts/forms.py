@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import UserProfile
+from .models import Aviso
 
 class CustomUserCreationForm(UserCreationForm):
     full_name = forms.CharField(
@@ -54,3 +55,27 @@ class CustomUserCreationForm(UserCreationForm):
             )
         return user
 
+
+class AvisoInternoForm(forms.ModelForm):
+    class Meta:
+        model = Aviso
+        fields = ['conteudo']
+        widgets = {
+            'conteudo': forms.Textarea(attrs={
+                'class': 'form-control',  
+                'rows': 4,  
+                'placeholder': 'Digite o aviso interno aqui...',  
+            }),
+        }
+
+class AvisoExternoForm(forms.ModelForm):
+    class Meta:
+        model = Aviso
+        fields = ['conteudo']
+        widgets = {
+            'conteudo': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Digite o aviso externo aqui...',
+            }),
+        }

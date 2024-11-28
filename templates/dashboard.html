@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Página Inicial - JUPS
+{% endblock title %}
+
+{% block content %}
+
+<div class="dashboard-container">
+    <!-- Navbar -->
+    <div class="navbar">
+        <div>
+            <a href="{% url 'dashboard' %}">Início</a>
+            <a href="{% url 'palestras' %}">Palestras</a>
+            <a href="{% url 'dinamicas' %}">Dinâmicas</a>
+            <a href="{% url 'entrevistas' %}">Entrevista</a>
+            <a href="{% url 'meu_perfil' %}">Meu perfil</a>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+        <h1>Cronograma e avisos</h1>
+        
+        <div class="avisos-container">
+            <!-- Verifica o tipo de usuário -->
+            {% if user.profile.user_type == 'membro' %}
+                <!-- Publicar Aviso Interno -->
+                <div class="box">
+                    <h3>Avisos Internos</h3>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        {{ form_interno.non_field_errors }}
+                        <div class="form-group">
+                            {{ form_interno.conteudo.label_tag }}
+                            {{ form_interno.conteudo }}
+                            {{ form_interno.conteudo.errors }}
+                        </div>
+                        <button type="submit" name="publicar_interno" class="btn btn-primary">Publicar Interno</button>
+                    </form>
+                    
+                    <hr>
+                    <h4>Lista de Avisos Internos</h4>
+                    {% if avisos_internos %}
+                        {% for aviso in avisos_internos %}
+                            <div class="aviso">
+                                <p>{{ aviso.conteudo }}</p>
+                                <small>Publicado por {{ aviso.autor.username }} em {{ aviso.data_criacao|date:"d/m/Y H:i" }}</small>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                    {% else %}
+                        <p>Não há avisos internos no momento.</p>
+                    {% endif %}
+                </div>
+
+                <!-- Publicar Aviso Externo -->
+                <div class="box">
+                    <h3>Avisos Externos</h3>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        {{ form_externo.as_p }} <!-- Alterado para renderizar os campos automaticamente -->
+                        <button type="submit" name="publicar_externo" class="btn btn-primary">Publicar Externo</button>
+                    </form>
+                    <hr>
+                    <h4>Lista de Avisos Externos</h4>
+                    {% if avisos_externos %}
+                        {% for aviso in avisos_externos %}
+                            <div class="aviso">
+                                <p>{{ aviso.conteudo }}</p>
+                                <small>Publicado por {{ aviso.autor.username }} em {{ aviso.data_criacao|date:"d/m/Y H:i" }}</small>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                    {% else %}
+                        <p>Não há avisos externos no momento.</p>
+                    {% endif %}
+                </div>
+            {% elif user.profile.user_type == 'candidato' %}
+            <!-- Conteúdo do candidato -->
+            <div class="avisos-container">
+                <div class="box cronograma">
+                    <h3>Cronograma JUPS 24.2</h3>
+                    <ul>
+                        <li>Palestras - 10, 12 e 13 de agosto</li>
+                        <li>Dinâmicas em grupo - 14 a 20 de agosto</li>
+                        <li>Entrevistas - 26 a 31 de agosto</li>
+                        <li>Resultados - 8 de setembro</li>
+                    </ul>
+                </div>
+            
+                <div class="box avisos">
+                    <h3>Avisos</h3>
+                    {% if avisos %}
+                        {% for aviso in avisos %}
+                            <div class="aviso">
+                                <p>{{ aviso.conteudo }}</p>
+                                <small>Publicado por {{ aviso.autor.username }} em {{ aviso.data_criacao|date:"d/m/Y H:i" }}</small>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                    {% else %}
+                        <p>Não há avisos no momento.</p>
+                    {% endif %}
+                </div>
+            </div>            
+            {% else %}
+                <!-- Caso o tipo de usuário seja inválido -->
+                <p>Tipo de usuário inválido.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

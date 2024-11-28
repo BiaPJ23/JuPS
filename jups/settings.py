@@ -29,7 +29,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 #REDIRECIONAMENTOS
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'index'
+LOGIN_URL = '/accounts/login/'
 
 
 # Application definition

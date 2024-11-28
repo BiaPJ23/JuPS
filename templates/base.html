@@ -28,7 +28,18 @@
                 </li>
             </ul>
             <div id="links-direita">
-                <a href="{% url 'login' %}" id="link-login">Login</a>
+                <u1>
+                    {% if user.is_authenticated %}
+                    Logado com {{ user.username }} 
+                        <span>|</span>
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                        <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                            {% csrf_token %}
+                        </form>
+                        {% else %}
+                            <a href="{% url 'login' %}" id="link-login">Login</a>
+                        {% endif %}
+                </u1>
                 <span>|</span>
                 <a href="{% url 'about' %}" id="link-sobre">Sobre</a>
                 <li><a href="{%url 'palestras:index' %}"></a></li>

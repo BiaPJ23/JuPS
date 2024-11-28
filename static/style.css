@@ -390,3 +390,157 @@ button.submit-button:hover {
     margin: 0;
     padding-left: 20px;
 }
+
+/* Estilos para a tela logada */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    padding: 10px 20px;
+}
+
+.navbar a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.main-content {
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* Para a caixa de cronograma e avisos */
+.avisos-container {
+    display: flex;
+    gap: 20px; /* Espaço entre as caixas */
+    margin-top: 20px; /* Espaço acima do contêiner */
+    flex-wrap: wrap; /* Permite que as caixas se ajustem em telas menores */
+}
+
+.avisos-container .box {
+    flex: 1; /* Faz com que ambas as caixas ocupem o mesmo espaço */
+    min-width: 280px; /* Largura mínima para as caixas */
+    padding: 15px;
+    background-color: #f5f5f5;
+    color: #000;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajuste para o cronograma */
+.avisos-container .box.cronograma {
+    background-color: #fff;
+    color: #000;
+    padding: 20px;
+}
+
+.avisos-container .box.avisos {
+    background-color: #fff;
+    color: #000;
+    padding: 20px;
+}
+
+.avisos .aviso {
+    margin-bottom: 15px;
+}
+
+.avisos .aviso p {
+    font-size: 16px;
+    margin: 0 0 5px;
+}
+
+.avisos .aviso small {
+    color: #555;
+    font-size: 12px;
+}
+
+/* Adicionar responsividade */
+@media (max-width: 768px) {
+    .avisos-container {
+        flex-direction: column; /* Em telas pequenas, as caixas voltam a ficar empilhadas */
+    }
+}
+
+.avisos-list {
+    margin-bottom: 20px;
+}
+
+.aviso-card {
+    background-color: #444;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.aviso-card p {
+    margin: 0;
+}
+
+.aviso-autor {
+    font-size: 0.8em;
+    color: #ccc;
+    display: block;
+    margin-top: 5px;
+}
+
+.form-container {
+    display: block; /* Deve ser visível */
+    overflow: visible; 
+    margin-top: 20px;
+    background-color: #333;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.form-container .form-group {
+    margin-bottom: 10px;
+}
+
+.submit-button {
+    background-color: #ff6f61;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #ff3b30;
+}
+
+.avisos-internos, .avisos-externos {
+    margin-bottom: 30px;
+}
+
+form textarea {
+    width: 100%; /* Define a largura total do campo */
+    min-height: 100px; /* Altura mínima para o campo */
+    font-size: 14px; /* Tamanho da fonte */
+    
+}
+
+form button {
+    margin-top: 5px;
+}
