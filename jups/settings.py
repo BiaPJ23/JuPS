@@ -28,6 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#REDIRECIONAMENTOS
+LOGIN_REDIRECT_URL = 'index'
+
 
 # Application definition
 
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'staticpages.apps.StaticpagesConfig', 
     'palestras.apps.PalestrasConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [

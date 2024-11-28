@@ -241,3 +241,134 @@ footer small {
     font-size: 1.3rem;
     line-height: 1.6; /* Opcional: melhora a legibilidade */
 }
+/*Para a página de cadastro */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.signup-form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form-left {
+    margin-right: 30px; 
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-right {
+    margin-left: 30px;
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.form-group input, 
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button.submit-button {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.submit-button:hover {
+    background-color: #666;
+}
+/*Para a página de login: */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #000; /* Fundo preto */
+    color: #fff;
+    padding: 20px;
+}
+
+/* Logo */
+.logo img {
+    max-width: 100px; /* Tamanho ajustado do logo */
+    margin-bottom: 20px;
+}
+
+/* Estiliza o formulário */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1); /* Fundo translúcido */
+    border-radius: 10px;
+}
+
+.form-group {
+    width: 100%;
+}
+
+
+/* Estiliza a mensagem de erro */
+.error-message {
+    color: #ff4d4d;
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Links de recuperação de senha e cadastro */
+.links {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.links a {
+    color: #fff;
+    text-decoration: underline;
+    margin: 0 5px;
+}
+
+/* Botão de login */
+.login-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #666;
+}
