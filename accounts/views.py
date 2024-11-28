@@ -12,8 +12,15 @@ def signup(request):
             return HttpResponseRedirect(reverse('login'))
         else:
             print("Erros no formulário:", form.errors)
+            error_messages = [
+                {"label": form.fields[field].label, "errors": form.errors[field]}
+                for field in form.errors
+            ]
     else:
         form = CustomUserCreationForm()
+        error_messages = []
 
-    context = {'form': form}
-    return render(request, 'accounts/signup.html', context)
+    return render(request, 'accounts/signup.html', {
+        'form': form,
+        'error_messages': error_messages,
+    })

@@ -8,48 +8,45 @@ Criar Usuário
 <div class="form-container">
     <form method="post" class="signup-form">
         {% csrf_token %}
+
         
         <!-- Coluna da esquerda -->
         <div class="form-left">
             <h3>Dados pessoais</h3>
             
             <div class="form-group">
-                <label for="name">Nome completo</label>
+                <label for="id_full_name">Nome completo</label>
                 {{ form.full_name }}
             </div>
+            
             <div class="form-group">
-                <label for="username">Nome de Usuário</label>
+                <label for="id_username">Nome de Usuário (apenas letras, números e @/./+/-/_)</label>
                 {{ form.username }}
             </div>
             
             <div class="form-group">
-                <label for="curso">Curso</label>
-                <input type="text" name="curso" id="curso" required>
+                <label for="id_curso">Curso</label>
+                {{ form.curso }}
             </div>
             
             <div class="form-group">
-                <label for="ano_ingresso">Ano de ingresso</label>
-                <input type="number" name="ano_ingresso" id="ano_ingresso" required>
+                <label for="id_ano_ingresso">Ano de ingresso</label>
+                {{ form.ano_ingresso }}
             </div>
             
             <div class="form-group">
-                <label for="genero">Gênero</label>
-                <select name="genero" id="genero" required>
-                    <option value="masculino">Masculino</option>
-                    <option value="feminino">Feminino</option>
-                    <option value="nao-binario">Não-binário</option>
-                    <option value="prefiro-nao-dizer">Prefiro não dizer</option>
-                </select>
+                <label for="id_genero">Gênero</label>
+                {{ form.genero }}
             </div>
             
             <div class="form-group">
-                <label for="data_nascimento">Data de nascimento</label>
-                <input type="date" name="data_nascimento" id="data_nascimento" required>
+                <label for="id_data_nascimento">Data de nascimento</label>
+                {{ form.data_nascimento }}
             </div>
             
             <div class="form-group">
-                <label for="telefone">Telefone de contato</label>
-                <input type="text" name="telefone" id="telefone" required>
+                <label for="id_telefone">Telefone de contato</label>
+                {{ form.telefone }}
             </div>
         </div>
 
@@ -58,23 +55,38 @@ Criar Usuário
             <h3>Informações de Login</h3>
             
             <div class="form-group">
-                <label for="email">Email</label>
+                <label for="id_email">Email</label>
                 {{ form.email }}
             </div>
             
             <div class="form-group">
-                <label for="password1">Senha</label>
+                <label for="id_password1">Senha</label>
                 {{ form.password1 }}
             </div>
             
             <div class="form-group">
-                <label for="password2">Confirmar Senha</label>
+                <label for="id_password2">Confirmar Senha</label>
                 {{ form.password2 }}
             </div>
             
             <button type="submit" class="submit-button">Criar conta</button>
+            
+            <!-- Exibição de erros abaixo do botão -->
+            {% if error_messages %}
+            <div class="error-messages" style="color: red; margin-top: 10px;">
+                {% for error in error_messages %}
+                    <p><strong>{{ error.label }}:</strong></p>
+                    <ul>
+                        {% for message in error.errors %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            </div>
         </div>
     </form>
 </div>
 {% endblock content %}
-
