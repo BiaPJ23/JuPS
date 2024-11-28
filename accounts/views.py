@@ -43,9 +43,11 @@ def avisos_dashboard(request):
         'avisos_internos': avisos_internos,
         'avisos_externos': avisos_externos,
     }
-    print(form_interno.as_table())
-    print(form_interno.errors)
-
+    #print(form_interno.as_table())
+    #print(form_interno.errors)
+    
+    if request.user.profile.user_type == "candidato":
+        context['avisos'] = avisos_externos
 
     return render(request, 'dashboard.html', context)
 
@@ -73,7 +75,13 @@ def signup(request):
 
 @login_required
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    context = {}
+
+    if request.user.profile.user_type == "candidato":
+        avisos_externos = Aviso.objects.filter(tipo='externo').order_by('-data_criacao')
+        context['avisos'] = avisos_externos
+
+    return render(request, 'dashboard.html', context)
 
 @login_required
 def palestras(request):
