@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'staticpages.apps.StaticpagesConfig', 
     'palestras.apps.PalestrasConfig',
     'accounts.apps.AccountsConfig',
+    'dinamicas.apps.DinamicasConfig',
 ]
 
 MIDDLEWARE = [
