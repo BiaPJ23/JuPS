@@ -31,11 +31,13 @@ Login
         {% endif %}
 
         {% if messages %}
-        <ul class="messages">
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
+            <ul class="messages">
+                {% for message in messages %}
+                    {% if message.tafs != "success" %}    
+                        <li>{{ message }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
         {% endif %}
 
 
