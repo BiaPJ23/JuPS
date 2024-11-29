@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Dinamicas
+{% endblock title %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Navbar -->
+    <div class="navbar">
+        <div>
+            <a href="{% url 'avisos_dashboard' %}">Início</a>
+            <a href="{% url 'palestras' %}">Palestras</a>
+            <a href="{% url 'dinamicas' %}">Dinâmicas</a>
+            <a href="{% url 'entrevistas' %}">Entrevista</a>
+            <a href="{% url 'meu_perfil' %}">Meu perfil</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <p>
+            A segunda etapa do nosso processo seletivo são as dinâmicas em grupo. Escolha <u><b>todos</b></u> os horários que considerar disponíveis. Será possível editar os horários até dia xx/xx. A partir do dia yy/yy será divulgada nessa página qual o dia marcado para sua dinâmica, portanto fique atento!
+            Caso tenha alguma dúvida, fique a vontade de fazer perguntas.
+        </p>
+        <h2>Selecione os horários disponíveis</h2>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tabela Clicável</title>
+        <div class="tabela-dinamica">
+            <table>
+                <thead>
+                    <tr>
+                        <th> </th>
+                        <th>8:00</th>
+                        <th>9:00</th>
+                        <th>10:00</th>
+                        <th>11:00</th>
+                        <th>12:00</th>
+                        <th>13:00</th>
+                        <th>14:00</th>
+                        <th>15:00</th>
+                        <th>16:00</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>09/08</td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                    </tr>
+                    <tr>
+                        <td>10/08</td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                    </tr>
+                    <tr>
+                        <td>11/08</td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                        <td><input type="checkbox" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</head>
+<body>
+
+
+
+
+</body>
+</html>
+{% endblock content %}
