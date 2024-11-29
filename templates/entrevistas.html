@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Entrevistas
+{% endblock title %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="navbar">
+        <div>
+            <a href="{% url 'avisos_dashboard' %}">Início</a>
+            <a href="{% url 'palestras' %}">Palestras</a>
+            <a href="{% url 'dinamicas' %}">Dinâmicas</a>
+            <a href="{% url 'entrevistas' %}">Entrevista</a>
+            <a href="{% url 'meu_perfil' %}">Meu perfil</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h2>Entrevistas</h2>
+        {% if is_membro %}
+        {% if mensagem %}
+        <p>{{ mensagem }}</p>
+        {% else %}
+        <p>Selecione os horários disponíveis para conduzir as entrevistas.</p>
+        <form method="post">
+            {% csrf_token %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        {% for horario in horarios %}
+                        <th>{{ horario }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in datas %}
+                    <tr>
+                        <td>{{ data|date:"d/m/Y" }}</td>
+                        {% for horario in horarios %}
+                        <td>
+                            <input type="checkbox" name="disponibilidades_entrevistas[]" value="{{ data|date:"d/m/Y" }}|{{ horario }}">
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit">Salvar</button>
+        </form>
+        {% endif %}
+        {% else %}
+        {% if mensagem %}
+        <p>{{ mensagem }}</p>
+        {% else %}
+        <p>Escolha um horário disponível para participar de uma dinâmica.</p>
+        <form method="post">
+            {% csrf_token %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Membro</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for disponibilidade_entrevista in disponibilidades_entrevistas %}
+                    <tr>
+                        <td>{{ disponibilidade_entrevista.membro.username }}</td>
+                        <td>{{ disponibilidade_entrevista.data }}</td>
+                        <td>{{ disponibilidade_entrevista.hora }}</td>
+                        <td>
+                            <button type="submit" name="disponibilidade_entrevista_id" value="{{ disponibilidade_entrevista.id }}">Inscrever-se</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
+        {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
+
+
+
+

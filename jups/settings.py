@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'palestras.apps.PalestrasConfig',
     'accounts.apps.AccountsConfig',
     'dinamicas.apps.DinamicasConfig',
+    'entrevistas.apps.EntrevistasConfig',
 ]
 
 MIDDLEWARE = [
