@@ -28,7 +28,7 @@ def dinamicas(request):
                 for disp in disponibilidades_existentes
             ]
             return render(request, 'dinamicas.html', {
-                'mensagem': f"Você já configurou suas disponibilidades: {', '.join(mensagens_disponibilidades)}.",
+                'mensagem': f"Você já selecionou suas disponibilidades: {', '.join(mensagens_disponibilidades)}.",
                 'is_membro': True
             })
 
