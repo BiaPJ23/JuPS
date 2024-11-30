@@ -97,4 +97,6 @@ def entrevistas(request):
 
 @login_required
 def meu_perfil(request):
-    return render(request, 'meu_perfil.html')
+    user_profile = request.user.profile
+    return render(request, 'meu_perfil.html', {'user_profile': user_profile})
+

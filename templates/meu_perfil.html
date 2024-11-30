@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Perfil
+{% endblock title %}
+
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="navbar">
+        <div>
+            <a href="{% url 'avisos_dashboard' %}">Início</a>
+            <a href="{% url 'palestras' %}">Palestras</a>
+            <a href="{% url 'dinamicas' %}">Dinâmicas</a>
+            <a href="{% url 'entrevistas' %}">Entrevista</a>
+            <a href="{% url 'meu_perfil' %}">Meu perfil</a>
+        </div>
+    </div>
+
+    <div class="perfil-container">
+        <h1>Meu perfil</h1>
+        <h2>{{ request.user.first_name }} {{ request.user.last_name|default:request.user.username }}</h2>
+    
+        <div class="perfil-info">
+            <div class="perfil-item">
+                <strong>Nome de usuário</strong>
+                <p>{{ request.user.username|default:"-" }}</p>
+            </div>
+            <div class="perfil-item">
+                <strong>Curso de ingresso</strong>
+                <p>{{ user_profile.curso|default:"-" }}</p>
+            </div>
+            <div class="perfil-item">
+                <strong>Ano de ingresso</strong>
+                <p>{{ user_profile.ano_ingresso|default:"-" }}</p>
+            </div>
+            <div class="perfil-item">
+                <strong>Gênero</strong>
+                <p>{{ user_profile.genero|default:"-" }}</p>
+            </div>
+            <div class="perfil-item">
+                <strong>Data de nascimento</strong>
+                <p>{{ user_profile.data_nascimento|date:"d/m/Y"|default:"-" }}</p>
+            </div>
+            <div class="perfil-item">
+                <strong>Telefone de contato</strong>
+                <p>{{ user_profile.telefone|default:"-" }}</p>
+            </div>
+        </div>
+    
+        <!-- Feedbacks (por enquanto em branco) -->
+        <div class="feedbacks">
+            <div class="feedback-dinamica">
+                <h3>Feedback da dinâmica</h3>
+                <div class="feedback-box"></div>
+            </div>
+            <div class="feedback-entrevista">
+                <h3>Feedback da entrevista</h3>
+                <div class="feedback-box"></div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock content %}

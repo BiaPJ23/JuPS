@@ -288,6 +288,16 @@ footer small {
     box-sizing: border-box;
 }
 
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .form-left, .form-right {
+        width: 100%;
+    }
+}
+
 button.submit-button {
     width: 100%;
     padding: 10px 20px;
@@ -564,4 +574,39 @@ td {
 input[type="checkbox"] {
     transform: scale(1.5);
     cursor: pointer;
+}
+/*para a página de perfil*/
+.perfil-container {
+    background-color: #222;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.perfil-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.perfil-item {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.feedbacks {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.feedback-box {
+    width: 100%;
+    height: 150px;
+    background-color: #555;
+    border-radius: 5px;
 }
