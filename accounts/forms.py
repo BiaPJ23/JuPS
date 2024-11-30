@@ -80,6 +80,30 @@ class AvisoExternoForm(forms.ModelForm):
             }),
         }
 
+class FeedbackDinâmica(forms.ModelForm):
+    class Meta:
+        model = Aviso
+        fields = ['conteudo']
+        widgets = {
+            'conteudo': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Digite o aviso externo aqui...',
+            }),
+        }
+
+class FeedbackEntrevista(forms.ModelForm):
+    class Meta:
+        model = Aviso
+        fields = ['conteudo']
+        widgets = {
+            'conteudo': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Digite o aviso externo aqui...',
+            }),
+        }
+
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile

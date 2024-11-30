@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'dinamicas.apps.DinamicasConfig',
     'entrevistas.apps.EntrevistasConfig',
-    'perfil.apps.PerfilConfig',
 ]
 
 MIDDLEWARE = [
