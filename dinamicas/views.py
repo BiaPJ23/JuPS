@@ -40,6 +40,8 @@ def dinamicas(request):
 
     elif request.user.profile.user_type == 'candidato':
         # Verificar se o candidato já está inscrito
+        status_aprovacao = request.user.profile.status_aprovacao
+
         dinamicas_inscrito = request.user.dinamicas.all()
         if dinamicas_inscrito.exists():
             dinamica = dinamicas_inscrito.first()
@@ -49,7 +51,8 @@ def dinamicas(request):
             )
             return render(request, 'dinamicas.html', {
                 'mensagem': mensagem_inscricao,
-                'is_membro': False
+                'is_membro': False,
+                'status_aprovacao': status_aprovacao
             })
 
         if request.method == 'POST':
@@ -77,7 +80,11 @@ def dinamicas(request):
 
         # Exibir horários disponíveis
         disponibilidades = Disponibilidade.objects.filter(dinamica__isnull=True).order_by('data', 'hora')
-        return render(request, 'dinamicas.html', {'disponibilidades': disponibilidades, 'is_membro': False})
+        return render(request, 'dinamicas.html', {
+            'disponibilidades': disponibilidades, 
+            'is_membro': False,
+            'status_aprovacao': status_aprovacao
+            })
     
     else:
         # Redirecionar se o user_type não for membro nem candidato
@@ -89,16 +96,15 @@ def aprovar_candidatos(request):
         return redirect('login')
 
     if request.method == 'POST':
-        aprovados = request.POST.getlist('aprovados')
-        for candidato_id in aprovados:
-            try:
-                candidato = UserProfile.objects.get(id=candidato_id)
-                candidato.user_type = 'membro'  # Alterar status para membro
-                candidato.save()
-            except UserProfile.DoesNotExist:
-                pass  # Caso o candidato não exista, ignore
+        aprovados = request.POST.getlist('aprovados')  # IDs dos candidatos aprovados
+        for candidato in UserProfile.objects.filter(user_type='candidato'):
+            if str(candidato.id) in aprovados:
+                candidato.status_aprovacao = 'aprovado'  # Marcar como aprovado
+            else:
+                candidato.status_aprovacao = 'reprovado'  # Marcar como reprovado
+            candidato.save()
 
-        return redirect('aprovar_candidatos')  # Redirecione após salvar
+        return redirect('aprovar_candidatos') # Redirecione após salvar
 
     candidatos = UserProfile.objects.filter(user_type='candidato')  # Apenas candidatos
     return render(request, 'aprovar_candidatos.html', {'candidatos': candidatos})

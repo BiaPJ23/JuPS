@@ -85,6 +85,16 @@ Dinâmicas
             </table>
         </form>
         {% endif %}
+        <div class="resultado-container">
+            <h3>Resultado:</h3>
+            {% if user_profile.status_aprovacao == 'pendente' %}
+                <p>Status: <strong>Pendente</strong></p>
+            {% elif user_profile.status_aprovacao == 'aprovado' %}
+                <p>Status: <strong style="color: green;">Aprovado</strong></p>
+            {% elif user_profile.status_aprovacao == 'reprovado' %}
+                <p>Status: <strong style="color: red;">Reprovado</strong></p>
+            {% endif %}
+        </div>
         {% endif %}
     </div>
 </div>

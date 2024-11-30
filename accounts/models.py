@@ -31,6 +31,17 @@ class UserProfile(models.Model):
         default='candidato', 
         verbose_name="Tipo de Usuário")
     
+    APROVACAO_CHOICES = [
+        ('pendente', 'Pendente'),
+        ('aprovado', 'Aprovado'),
+        ('reprovado', 'Reprovado'),
+    ]
+    status_aprovacao = models.CharField(
+        max_length=10, 
+        choices=APROVACAO_CHOICES, 
+        default='pendente', 
+        verbose_name="Status de Aprovação"
+    )
     def __str__(self):
         return f"Perfil de {self.user.username}"
 
