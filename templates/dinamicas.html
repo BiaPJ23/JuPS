@@ -50,6 +50,10 @@ Dinâmicas
             <button type="submit">Salvar</button>
         </form>
         {% endif %}
+        <div class="editar-perfil">
+            <br>
+            <a href="{% url 'aprovar_candidatos' %}" class="btn btn-primary">Aprovação Candidatos</a>
+        </div>
         {% else %}
         {% if mensagem %}
         <p>{{ mensagem }}</p>
@@ -85,7 +89,3 @@ Dinâmicas
     </div>
 </div>
 {% endblock content %}
-
-
-
-

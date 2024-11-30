@@ -3,6 +3,7 @@ from .models import Disponibilidade, Dinamica
 from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from accounts.models import UserProfile
 
 @login_required
 def dinamicas(request):
@@ -82,3 +83,22 @@ def dinamicas(request):
         # Redirecionar se o user_type não for membro nem candidato
         messages.error(request, "Você não tem permissão para acessar essa página.")
         return redirect('dashboard')
+    
+def aprovar_candidatos(request):
+    if not request.user.is_authenticated:  # Certifique-se de que o usuário está logado
+        return redirect('login')
+
+    if request.method == 'POST':
+        aprovados = request.POST.getlist('aprovados')
+        for candidato_id in aprovados:
+            try:
+                candidato = UserProfile.objects.get(id=candidato_id)
+                candidato.user_type = 'membro'  # Alterar status para membro
+                candidato.save()
+            except UserProfile.DoesNotExist:
+                pass  # Caso o candidato não exista, ignore
+
+        return redirect('aprovar_candidatos')  # Redirecione após salvar
+
+    candidatos = UserProfile.objects.filter(user_type='candidato')  # Apenas candidatos
+    return render(request, 'aprovar_candidatos.html', {'candidatos': candidatos})
