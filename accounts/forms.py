@@ -79,3 +79,17 @@ class AvisoExternoForm(forms.ModelForm):
                 'placeholder': 'Digite o aviso externo aqui...',
             }),
         }
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['curso', 'ano_ingresso', 'genero', 'data_nascimento', 'telefone']  # Campos que o usuário pode editar
+
+        # Adicionando labels personalizados, se necessário
+        labels = {
+            'curso': 'Curso de Ingresso',
+            'ano_ingresso': 'Ano de Ingresso',
+            'genero': 'Gênero',
+            'data_nascimento': 'Data de Nascimento',
+            'telefone': 'Telefone de Contato',
+        }

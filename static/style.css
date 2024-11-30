@@ -598,6 +598,32 @@ input[type="checkbox"] {
     text-align: center;
 }
 
+.perfil-actions {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.perfil-actions button,
+.perfil-actions a {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.perfil-actions button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.perfil-actions a {
+    background-color: #f44336;
+    color: white;
+    border: none;
+}
+
 .feedbacks {
     display: flex;
     gap: 20px;
@@ -609,4 +635,18 @@ input[type="checkbox"] {
     height: 150px;
     background-color: #555;
     border-radius: 5px;
+}
+
+.editar-perfil a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;  /* Cor verde */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.editar-perfil a:hover {
+    background-color: #45a049;  /* Cor mais escura quando passar o mouse */
 }

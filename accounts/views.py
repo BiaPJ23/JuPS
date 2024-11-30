@@ -4,7 +4,7 @@ from django.urls import reverse
 from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Aviso
-from .forms import AvisoInternoForm, AvisoExternoForm
+from .forms import AvisoInternoForm, AvisoExternoForm, UserProfileForm
 
 @login_required
 def avisos_dashboard(request):
@@ -100,3 +100,17 @@ def meu_perfil(request):
     user_profile = request.user.profile
     return render(request, 'meu_perfil.html', {'user_profile': user_profile})
 
+@login_required
+def editar_perfil(request):
+    # Obtém o perfil do usuário autenticado
+    user_profile = request.user.profile
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()  # Salva as alterações no banco de dados
+            return redirect('meu_perfil')  # Redireciona para a página de perfil após salvar
+    else:
+        form = UserProfileForm(instance=user_profile)
+
+    return render(request, 'editar_perfil.html', {'form': form})

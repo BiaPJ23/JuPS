@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Painel do Candidato{% endblock title %}
+
+{% block content %}
+
+        
+<div class="avisos-container">
+    <!-- Caixa Cronograma -->
+    <div class="box">
+        <h3>Cronograma JUPS 24.2</h3>
+        <ul>
+            <li>Palestras - 10, 12 e 13 de agosto</li>
+            <li>Dinâmicas em grupo - 14 a 20 de agosto</li>
+            <li>Entrevistas - 26 a 31 de agosto</li>
+            <li>Resultados - 8 de setembro</li>
+        </ul>
+    </div>
+    <!-- Caixa Avisos -->
+    <h2>Avisos Recentes</h2>
+    <div class="avisos-list">
+        {% for aviso in avisos %}
+        <div class="aviso-card">
+            <p>{{ aviso.conteudo }}</p>
+            <small>Publicado por {{ aviso.autor.username }} em {{ aviso.data_criacao|date:"d/m/Y H:i" }}</small>
+        </div>
+        <hr>
+        {% empty %}
+        <p>Nenhum aviso disponível no momento.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

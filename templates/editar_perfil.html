@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Editar Perfil
+{% endblock title %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="navbar">
+        <div>
+            <a href="{% url 'avisos_dashboard' %}">Início</a>
+            <a href="{% url 'palestras' %}">Palestras</a>
+            <a href="{% url 'dinamicas' %}">Dinâmicas</a>
+            <a href="{% url 'entrevistas' %}">Entrevista</a>
+            <a href="{% url 'meu_perfil' %}">Meu perfil</a>
+        </div>
+    </div>
+
+    <div class="perfil-container">
+        <h1>Editar Perfil</h1>
+
+        <form method="POST" class="perfil-info">
+            {% csrf_token %}
+            
+            <div class="perfil-item">
+                <strong>Nome completo</strong>
+                <input type="text" name="full_name" value="{{ user_profile.user.get_full_name }}" required>
+            </div>
+
+            <div class="perfil-item">
+                <strong>Curso de ingresso</strong>
+                <input type="text" name="curso" value="{{ user_profile.curso }}" required>
+            </div>
+
+            <div class="perfil-item">
+                <strong>Ano de ingresso</strong>
+                <input type="number" name="ano_ingresso" value="{{ user_profile.ano_ingresso }}" required>
+            </div>
+
+            <div class="perfil-item">
+                <strong>Gênero</strong>
+                <select name="genero">
+                    <option value="masculino" {% if user_profile.genero == 'masculino' %}selected{% endif %}>Masculino</option>
+                    <option value="feminino" {% if user_profile.genero == 'feminino' %}selected{% endif %}>Feminino</option>
+                    <option value="nao-binario" {% if user_profile.genero == 'nao-binario' %}selected{% endif %}>Não-binário</option>
+                    <option value="prefiro-nao-dizer" {% if user_profile.genero == 'prefiro-nao-dizer' %}selected{% endif %}>Prefiro não dizer</option>
+                </select>
+            </div>
+
+            <div class="perfil-item">
+                <strong>Data de nascimento</strong>
+                <input type="date" name="data_nascimento" value="{{ user_profile.data_nascimento|date:'Y-m-d' }}" required>
+            </div>
+
+            <div class="perfil-item">
+                <strong>Telefone de contato</strong>
+                <input type="text" name="telefone" value="{{ user_profile.telefone }}" required>
+            </div>
+
+            <!-- Botões de ação -->
+            <div class="perfil-actions">
+                <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                <a href="{% url 'meu_perfil' %}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

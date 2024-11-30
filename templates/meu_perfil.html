@@ -47,6 +47,12 @@ Perfil
                 <p>{{ user_profile.telefone|default:"-" }}</p>
             </div>
         </div>
+        
+        <!-- Link para editar o perfil -->
+        <div class="editar-perfil">
+            <br>
+            <a href="{% url 'editar_perfil' %}">Editar informações</a>
+        </div>
     
         <!-- Feedbacks (por enquanto em branco) -->
         <div class="feedbacks">

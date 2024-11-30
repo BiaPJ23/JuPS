@@ -11,4 +11,5 @@ urlpatterns = [
     path('dinamicas/', views.dinamicas, name='dinamicas'),
     path('entrevistas/', views.entrevistas, name='entrevistas'),
     path('meu_perfil/', views.meu_perfil, name='meu_perfil'),
+    path('meu_perfil/editar/', views.editar_perfil, name='editar_perfil'),
 ]
