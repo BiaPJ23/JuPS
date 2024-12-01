@@ -26,7 +26,7 @@ Página Palestras
                 <p>18/08 às 14h - online</p>
             <div class="editar-perfil">
                 <br>
-                <a href="{% url 'palestras:aprovar_palestras' %}" class="btn btn-primary">Aprovação Candidatos Palestra</a>
+                <a href="{% url 'aprovar_palestras' %}" class="btn btn-primary">Aprovação Candidatos Palestra</a>
             </div>
         {% else %}
             <!-- Tela para candidatos -->
@@ -43,7 +43,7 @@ Página Palestras
                     no horário {{ user.selecao_set.first.palestra.horário }}.
                 </p>
             {% else %}
-                <form method="post" action="{% url 'palestras:select' %}">
+                <form method="post" action="{% url 'select' %}">
                     {% csrf_token %}
                     <label for="palestra">Data (horário)</label>
                     <select name="palestra_id" id="palestra" required>
@@ -63,7 +63,7 @@ Página Palestras
         <!-- Vísivel para membros e candidatos-->
         <br>
         <br>
-        <a href="{% url 'palestras:chat_duvidas' %}" class="login-button">Chat de Dúvidas</a>
+        <a href="{% url 'chat_duvidas' %}" class="login-button">Chat de Dúvidas</a>
     </div>
 </div>
 {% endblock content %}
