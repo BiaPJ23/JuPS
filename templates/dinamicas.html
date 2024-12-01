@@ -118,29 +118,11 @@ Dinâmicas
                 <p><strong style="color: red;">Reprovado</strong></p>
             {% endif %}
         </div>
-        <div class="box">
-            <h3>Fórum de dúvidas</h3>
-            <form method="post" action="">
-                {% csrf_token %}
-                {{ form_dinamica.as_p }}
-                <button type="submit" name="publicar_duvida" class="btn btn-primary">Publicar Dúvida</button>
-            </form>
-            <hr>
-
-            <h4>Lista de Dúvidas</h4>
-            {% if duvidas_dinamica_lista %}
-                {% for duvida in duvidas_dinamica_lista %}
-                    <div class="duvida">
-                        <p>{{ duvida.texto}}</p>
-                        <small>Publicado por {{ duvida.autor.username }} em {{ duvida.data|date:"d/m/Y H:i" }}</small>
-                    </div>
-                    <hr>
-                {% endfor %}
-            {% else %}
-                <p>Não há dúvidas no momento.</p>
-            {% endif %}
         {% endif %}
-        </div>
+        <!-- Vísivel para membros e candidatos-->
+        <br>
+        <br>
+        <a href="{% url 'dinamicas:chat_duvidas' %}" class="login-button">Chat de Dúvidas</a>
         
     </div>
 </div>

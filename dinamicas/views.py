@@ -4,7 +4,8 @@ from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from accounts.models import UserProfile
-from .forms import DuvidasDinamicas
+from accounts.models import MensagemChat
+from accounts.forms import ChatForm
 
 @login_required
 def dinamicas(request):
@@ -113,24 +114,24 @@ def aprovar_dinamicas(request):
 
     return render(request, 'aprovar_dinamicas.html', {'candidatos': candidatos})
 
-
 @login_required
-def forum_dinamica(request):
+def chat_duvidas(request):
     if request.method == 'POST':
-        form_dinamica = DuvidasDinamicas(request.POST)
-        if form_dinamica.is_valid():
-            duvida = form_dinamica.save(commit=False)
-            duvida.autor = request.user
-            duvida.save()
-            return redirect('forum_dinamica')
+        form = ChatForm(request.POST)
+        if form.is_valid():
+            mensagem = form.save(commit=False)
+            mensagem.autor = request.user
+            mensagem.save()
+            messages.success(request, "Sua mensagem foi enviada!")
+            return redirect('dinamicas:chat_duvidas')
+    else:
+        form = ChatForm()
 
-    
-    duvidas_dinamica_lista = ForumDinamica.objects.all()
+    mensagens = MensagemChat.objects.all().order_by('-data_hora')  # Mensagens mais recentes primeiro
     context = {
-        'form_dinamica': form_dinamica,
-        'duvidas_dinamica_lista': duvidas_dinamica_lista,
+        'form': form,
+        'mensagens': mensagens,
     }
-    return render(request, 'dinamicas.html', context)
-                             
+    return render(request, 'dinamicas/chat_dinamicas.html', context)                        
 
 

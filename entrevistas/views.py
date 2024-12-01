@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from accounts.models import UserProfile
+from accounts.models import MensagemChat
+from accounts.forms import ChatForm
 
 @login_required
 def entrevistas(request):
@@ -109,3 +111,24 @@ def aprovar_entrevistas(request):
         return redirect('aprovar_entrevistas')
 
     return render(request, 'aprovar_entrevistas.html', {'candidatos': candidatos})
+
+
+@login_required
+def chat_duvidas(request):
+    if request.method == 'POST':
+        form = ChatForm(request.POST)
+        if form.is_valid():
+            mensagem = form.save(commit=False)
+            mensagem.autor = request.user
+            mensagem.save()
+            messages.success(request, "Sua mensagem foi enviada!")
+            return redirect('palestras:chat_duvidas')
+    else:
+        form = ChatForm()
+
+    mensagens = MensagemChat.objects.all().order_by('-data_hora')  # Mensagens mais recentes primeiro
+    context = {
+        'form': form,
+        'mensagens': mensagens,
+    }
+    return render(request, 'palestras/chat_palestras.html', context)

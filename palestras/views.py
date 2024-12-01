@@ -69,4 +69,4 @@ def chat_duvidas(request):
         'form': form,
         'mensagens': mensagens,
     }
-    return render(request, 'palestras/chat_duvidas.html', context)
+    return render(request, 'palestras/chat_palestras.html', context)
