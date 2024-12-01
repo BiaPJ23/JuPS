@@ -87,11 +87,11 @@ Dinâmicas
         {% endif %}
         <div class="resultado-container">
             <h3>Resultado:</h3>
-            {% if user_profile.status_aprovacao == 'pendente' %}
+            {% if user_profile.status_dinamica == 'pendente' %}
                 <p><strong style="color: orchid;">Pendente</strong></p>
-            {% elif user_profile.status_aprovacao == 'aprovado' %}
+            {% elif user_profile.status_dinamica == 'aprovado' %}
                 <p><strong style="color: green;">Aprovado</strong></p>
-            {% elif user_profile.status_aprovacao == 'reprovado' %}
+            {% elif user_profile.status_dinamica == 'reprovado' %}
                 <p><strong style="color: red;">Reprovado</strong></p>
             {% endif %}
         </div>

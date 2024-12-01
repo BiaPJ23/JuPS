@@ -85,15 +85,16 @@ Entrevistas
             </table>
         </form>
         {% endif %}
+        <div class="resultado-container">
         <h3>Resultado da Entrevista:</h3>
-            {% if user_profile.status_aprovacao == 'pendente' %}
+            {% if user_profile.status_entrevista == 'pendente' %}
             <p><strong style="color: orchid;">Pendente</strong></p>
             {% elif user_profile.status_entrevista == 'aprovado' %}
                 <p>Status: <strong style="color: green;">Aprovado</strong></p>
             {% elif user_profile.status_entrevista == 'reprovado' %}
                 <p>Status: <strong style="color: red;">Reprovado</strong></p>
             {% endif %}
-
+        </div>
         {% endif %}
     </div>
 </div>

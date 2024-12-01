@@ -7,6 +7,8 @@ from accounts.models import UserProfile
 
 @login_required
 def entrevistas(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+
     if request.user.profile.user_type == 'membro':
         if request.method == 'POST':
             disponibilidades_entrevistas = request.POST.getlist('disponibilidades_entrevistas[]')
@@ -49,7 +51,8 @@ def entrevistas(request):
             )
             return render(request, 'entrevistas.html', {
                 'mensagem': mensagem_inscricao,
-                'is_membro': False
+                'is_membro': False,
+                'user_profile': user_profile
             })
 
         if request.method == 'POST':
@@ -77,7 +80,11 @@ def entrevistas(request):
 
         # Exibir horários disponíveis
         disponibilidades_entrevistas = DisponibilidadeEntrevista.objects.filter(entrevista__isnull=True).order_by('data', 'hora')
-        return render(request, 'entrevistas.html', {'disponibilidades_entrevistas': disponibilidades_entrevistas, 'is_membro': False})
+        return render(request, 'entrevistas.html', {
+            'disponibilidades_entrevistas': disponibilidades_entrevistas, 
+            'is_membro': False,
+            'user_profile': user_profile
+            })
     
     else:
         # Redirecionar se o user_type não for membro nem candidato

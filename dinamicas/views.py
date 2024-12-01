@@ -42,7 +42,7 @@ def dinamicas(request):
 
     elif request.user.profile.user_type == 'candidato':
         # Verificar se o candidato já está inscrito
-        status_aprovacao = request.user.profile.status_aprovacao
+        status_dinamica = request.user.profile.status_dinamica
 
         dinamicas_inscrito = request.user.dinamicas.all()
         if dinamicas_inscrito.exists():
