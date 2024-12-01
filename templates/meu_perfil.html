@@ -56,24 +56,32 @@ Perfil
         
         <!-- Formulário de feedback para membros -->
         {% if is_membro %}
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="login-button">Enviar</button>
-            </form>
-            {% if message %}
-                <p class="success-message">{{ message }}</p>
-            {% endif %}
-        {% else %}
-        <!-- Exibição de feedbacks para candidatos -->
-            <div class="feedback-box">
-                <h3>Feedback da dinâmica</h3>
-                <p>{{ profile.feedback_dinamica|default:"Mensagem não disponível" }}</p>
-            </div>
-            <div class="feedback-box">
-                <h3>Feedback da entrevista</h3>
-                <p>{{ profile.feedback_entrevista|default:"Mensagem não disponível" }}</p>
-            </div>
+        <h2>Enviar Feedback</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="candidato">Escolha o candidato:</label>
+            <select name="candidato_id" id="candidato" required>
+                {% for candidato in candidatos %}
+                    <option value="{{ candidato.user.id }}">{{ candidato.user.first_name }} {{ candidato.user.last_name }}</option>
+                {% endfor %}
+            </select>
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Enviar Feedback</button>
+        </form>
+        {% if message %}
+            <p class="success-message">{{ message }}</p>
+        {% endif %}
+        {% endif %} 
+        {% if not is_membro %}
+        <h2>Seus Feedbacks</h2>
+        <div class="feedback-box">
+            <h3>Feedback da Dinâmica</h3>
+            <p>{{ feedback_dinamica|default:"Ainda não há feedback para a dinâmica." }}</p>
+        </div>
+        <div class="feedback-box">
+            <h3>Feedback da Entrevista</h3>
+            <p>{{ feedback_entrevista|default:"Ainda não há feedback para a entrevista." }}</p>
+        </div>
         {% endif %}
     </div>
 </div>

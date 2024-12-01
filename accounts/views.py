@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
-from .models import Aviso
+from .models import Aviso, UserProfile
 from .forms import AvisoInternoForm, AvisoExternoForm, UserProfileForm, FeedbackForm
 
 @login_required
@@ -97,29 +97,51 @@ def entrevistas(request):
 
 @login_required
 def meu_perfil(request):
-    user_profile = request.user.profile
-    is_membro = user_profile.user_type == 'membro'
+    user_profile = request.user.profile  # Obtém o perfil do usuário logado
+    is_membro = user_profile.user_type == 'membro'  # Verifica se o usuário é membro
+    message = None  # Mensagem de feedback para exibir na interface
+    form = None  # Inicializa o formulário como None
 
-    if is_membro and request.method == 'POST':
-        form = FeedbackForm(request.POST, instance=user_profile)
-        if form.is_valid():
-            form.save()
-            message = "Feedback enviado com sucesso!"
+    if is_membro:
+        # Se for membro, permite enviar feedback
+        if request.method == 'POST':
+            candidato_id = request.POST.get('candidato_id')  # Obtém o ID do candidato escolhido
+            candidato_profile = UserProfile.objects.filter(user_id=candidato_id, user_type='candidato').first()
+            
+            if candidato_profile:
+                # Se o candidato for válido, atualiza os feedbacks dele
+                form = FeedbackForm(request.POST, instance=candidato_profile)
+                if form.is_valid():
+                    form.save()
+                    message = f"Feedback enviado com sucesso para {candidato_profile.user.username}!"
+                else:
+                    message = "Erro ao enviar o feedback. Verifique os dados informados."
+            else:
+                message = "Candidato inválido ou não encontrado."
         else:
-            message = "Erro ao enviar o feedback."
+            form = FeedbackForm()  # Formulário vazio para membros
     else:
-        form = FeedbackForm(instance=user_profile)
-        message = None
+        # Se for candidato, exibe seus próprios feedbacks
+        feedback_dinamica = user_profile.feedback_dinamica
+        feedback_entrevista = user_profile.feedback_entrevista
 
+    # Adiciona os candidatos à lista de contexto, apenas para membros
+    candidatos = UserProfile.objects.filter(user_type='candidato') if is_membro else None
+
+    # Contexto compartilhado entre membros e candidatos
     context = {
         'profile': user_profile,
         'form': form,
         'is_membro': is_membro,
         'message': message,
+        'candidatos': candidatos,
+        'feedback_dinamica': feedback_dinamica if not is_membro else None,
+        'feedback_entrevista': feedback_entrevista if not is_membro else None,
     }
     context.update({'user_profile': user_profile})
 
     return render(request, 'meu_perfil.html', context)
+
 
 
 @login_required
