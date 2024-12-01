@@ -36,12 +36,28 @@ class UserProfile(models.Model):
         ('aprovado', 'Aprovado'),
         ('reprovado', 'Reprovado'),
     ]
-    status_aprovacao = models.CharField(
+    status_dinamica = models.CharField(
         max_length=10, 
         choices=APROVACAO_CHOICES, 
         default='pendente', 
-        verbose_name="Status de Aprovação"
+        verbose_name="Status Dinâmica"
     )
+
+    status_entrevista = models.CharField(
+        max_length=10, 
+        choices=APROVACAO_CHOICES, 
+        default='pendente', 
+        verbose_name="Status Entrevista"
+    )
+
+    status_palestra = models.CharField(
+        max_length=10, 
+        choices=APROVACAO_CHOICES, 
+        default='pendente', 
+        verbose_name="Status Palestra"
+    )
+
+
     def __str__(self):
         return f"Perfil de {self.user.username}"
 

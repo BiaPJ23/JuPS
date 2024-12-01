@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Aprovação de Candidatos da Palestra
+{% endblock title %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="navbar">
+        <div>
+            <a href="{% url 'avisos_dashboard' %}">Início</a>
+            <a href="{% url 'palestras' %}">Palestras</a>
+            <a href="{% url 'dinamicas' %}">Dinâmicas</a>
+            <a href="{% url 'entrevistas' %}">Entrevista</a>
+            <a href="{% url 'meu_perfil' %}">Meu perfil</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h2>Aprovação Palestras</h2>
+        <form method="post">
+            {% csrf_token %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Candidato</th>
+                        <th>Aprovado</th>
+                        <th>Reprovado</th>
+                        <th>Dúvida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for candidato in candidatos %}
+                    <tr>
+                        <td>{{ candidato.user.get_full_name }}</td>
+                        <td>
+                            <input 
+                                type="radio" 
+                                name="status_{{ candidato.id }}" 
+                                value="aprovado">
+                        </td>
+                        <td>
+                            <input 
+                                type="radio" 
+                                name="status_{{ candidato.id }}" 
+                                value="reprovado">
+                        </td>
+                        <td>
+                            <input 
+                                type="radio" 
+                                name="status_{{ candidato.id }}" 
+                                value="pendente">
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </div>
+    
+</div>
+{% endblock content %}

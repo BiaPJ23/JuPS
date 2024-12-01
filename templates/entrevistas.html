@@ -50,11 +50,15 @@ Entrevistas
             <button type="submit">Salvar</button>
         </form>
         {% endif %}
+        <div class="editar-perfil">
+            <br>
+            <a href="{% url 'aprovar_entrevistas' %}" class="btn btn-primary">Aprovação Candidatos</a>
+        </div>
         {% else %}
         {% if mensagem %}
         <p>{{ mensagem }}</p>
         {% else %}
-        <p>Escolha um horário disponível para participar de uma dinâmica.</p>
+        <p>Escolha um horário disponível para participar de uma entrevista.</p>
         <form method="post">
             {% csrf_token %}
             <table>
@@ -81,6 +85,15 @@ Entrevistas
             </table>
         </form>
         {% endif %}
+        <h3>Resultado da Entrevista:</h3>
+            {% if user_profile.status_aprovacao == 'pendente' %}
+            <p><strong style="color: orchid;">Pendente</strong></p>
+            {% elif user_profile.status_entrevista == 'aprovado' %}
+                <p>Status: <strong style="color: green;">Aprovado</strong></p>
+            {% elif user_profile.status_entrevista == 'reprovado' %}
+                <p>Status: <strong style="color: red;">Reprovado</strong></p>
+            {% endif %}
+
         {% endif %}
     </div>
 </div>

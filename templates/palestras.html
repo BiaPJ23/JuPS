@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Página Entrevistas
+Página Palestras
 {% endblock title %}
-{% block content %}
 
+{% block content %}
 <div class="dashboard-container">
     <!-- Navbar -->
     <div class="navbar">
@@ -18,34 +18,43 @@ Página Entrevistas
     </div>
 
     <div class="main-content">
-        <p>
-            A etapa inicial do nosso processo seletivo são as palestras. É importante que você participe em <u>pelo menos um</u> 
-            dos horários disponíveis a seguir. Após a finalização desta etapa, a aba de Dinâmicas estará disponível e você poderá
-            dar continuidade ao nosso processo seletivo. 
-            Caso tenha alguma dúvida, fique a vontade de fazer perguntas.
-        </p>
-    <h2>Selecione um horário</h2>
-    {% if user.is_authenticated and user.selecao_set.exists %}
-    <p class="success-message">
-    Você já selecionou a palestra: {{ user.selecao_set.first.palestra.name }}
-    no horário {{ user.selecao_set.first.palestra.horário }}.
-    </p>
-    {% else %}
-    <form method="post" action="{% url 'palestras:select' %}">
-    {% csrf_token %}
-    <label for="palestra">Data (horário)</label>
-    <select name="palestra_id" id="palestra" required>
-        <option value="" disabled selected>Escolha uma palestra</option>
-        {% for palestra in palestra_list %}
-        <option value="{{ palestra.id }}">{{ palestra.name}} ({{ palestra.horário|date:"d/m H\h" }})</option>
-        {% endfor %}
-    </select>
-    <button type="submit">Selecionar</button>
-    </form>
-    {% endif %}
-    {% if message %}
-    <p class="success-message">{{ message }}</p>
-    {% endif %}
-</div>
+        {% if user.profile.user_type == 'membro' %}
+            <!-- Tela para membros: Aprovação de candidatos -->
+            <div class="editar-perfil">
+                <br>
+                <a href="{% url 'palestras:aprovar_palestras' %}" class="btn btn-primary">Aprovação Candidatos Palestra</a>
+            </div>
+        {% else %}
+            <!-- Tela para candidatos -->
+            <p>
+                A etapa inicial do nosso processo seletivo são as palestras. É importante que você participe em <u>pelo menos um</u> 
+                dos horários disponíveis a seguir. Após a finalização desta etapa, a aba de Dinâmicas estará disponível e você poderá
+                dar continuidade ao nosso processo seletivo. 
+                Caso tenha alguma dúvida, fique à vontade de fazer perguntas.
+            </p>
+            <h2>Selecione um horário</h2>
+            {% if user.is_authenticated and user.selecao_set.exists %}
+                <p class="success-message">
+                    Você já selecionou a palestra: {{ user.selecao_set.first.palestra.name }}
+                    no horário {{ user.selecao_set.first.palestra.horário }}.
+                </p>
+            {% else %}
+                <form method="post" action="{% url 'palestras:select' %}">
+                    {% csrf_token %}
+                    <label for="palestra">Data (horário)</label>
+                    <select name="palestra_id" id="palestra" required>
+                        <option value="" disabled selected>Escolha uma palestra</option>
+                        {% for palestra in palestra_list %}
+                            <option value="{{ palestra.id }}">{{ palestra.name }} ({{ palestra.horário|date:"d/m H\h" }})</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Selecionar</button>
+                </form>
+            {% endif %}
+            {% if message %}
+                <p class="success-message">{{ message }}</p>
+            {% endif %}
+        {% endif %}
+    </div>
 </div>
 {% endblock content %}

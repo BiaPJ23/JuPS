@@ -93,21 +93,22 @@ def dinamicas(request):
         messages.error(request, "Você não tem permissão para acessar essa página.")
         return redirect('dashboard')
     
-def aprovar_candidatos(request):
-    if not request.user.is_authenticated:  # Certifique-se de que o usuário está logado
-        return redirect('login')
+@login_required
+def aprovar_dinamicas(request):
+    if request.user.profile.user_type != 'membro':
+        messages.error(request, "Você não tem permissão para acessar esta página.")
+        return redirect('dashboard')
+
+    candidatos = UserProfile.objects.filter(user_type='candidato', status_palestra='aprovado')
 
     if request.method == 'POST':
-        aprovados = request.POST.getlist('aprovados')  # IDs dos candidatos aprovados
-        for candidato in UserProfile.objects.filter(user_type='candidato'):
-            status = request.POST.get(f'status_{candidato.id}')
-            if status:
-                candidato.status_aprovacao = status
+        for candidato in candidatos:
+            novo_status = request.POST.get(f'status_{candidato.id}')
+            if novo_status:
+                candidato.status_dinamica = novo_status
                 candidato.save()
-        messages.success(request, "Alterações salvas com sucesso!")
-        return redirect('aprovar_candidatos')
+        messages.success(request, "Status das dinâmicas atualizado com sucesso!")
+        return redirect('aprovar_dinamicas')
 
-        return redirect('aprovar_candidatos') # Redirecione após salvar
+    return render(request, 'aprovar_dinamicas.html', {'candidatos': candidatos})
 
-    candidatos = UserProfile.objects.filter(user_type='candidato')  # Apenas candidatos
-    return render(request, 'aprovar_candidatos.html', {'candidatos': candidatos})

@@ -3,6 +3,7 @@ from .models import DisponibilidadeEntrevista, Entrevista
 from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from accounts.models import UserProfile
 
 @login_required
 def entrevistas(request):
@@ -43,7 +44,7 @@ def entrevistas(request):
         if entrevistas_inscrito.exists():
             entrevista = entrevistas_inscrito.first()
             mensagem_inscricao = (
-                f"Você já está inscrito na dinâmica do dia "
+                f"Você já está inscrito na entrevista do dia "
                 f"{entrevista.horario.data.strftime('%d/%m/%Y')} às {entrevista.horario.hora.strftime('%H:%M')}."
             )
             return render(request, 'entrevistas.html', {
@@ -65,7 +66,7 @@ def entrevistas(request):
                 if  disponibilidade_entrevista.entrevista.candidatos.count() < 1:
                     disponibilidade_entrevista.entrevista.candidatos.add(request.user)
                     messages.success(request, 
-                        f"Inscrição realizada com sucesso! Você está inscrito na dinâmica do dia "
+                        f"Inscrição realizada com sucesso! Você está inscrito na entrevista do dia "
                         f"{disponibilidade_entrevista.data.strftime('%d/%m/%Y')} às {disponibilidade_entrevista.hora.strftime('%H:%M')}."
                     )
                 else:
@@ -82,3 +83,22 @@ def entrevistas(request):
         # Redirecionar se o user_type não for membro nem candidato
         messages.error(request, "Você não tem permissão para acessar essa página.")
         return redirect('dashboard')
+
+@login_required
+def aprovar_entrevistas(request):
+    if request.user.profile.user_type != 'membro':
+        messages.error(request, "Você não tem permissão para acessar esta página.")
+        return redirect('dashboard')
+
+    candidatos = UserProfile.objects.filter(user_type='candidato', status_dinamica='aprovado')
+
+    if request.method == 'POST':
+        for candidato in candidatos:
+            novo_status = request.POST.get(f'status_{candidato.id}')
+            if novo_status:
+                candidato.status_entrevista = novo_status
+                candidato.save()
+        messages.success(request, "Status das entrevistas atualizado com sucesso!")
+        return redirect('aprovar_entrevistas')
+
+    return render(request, 'aprovar_entrevistas.html', {'candidatos': candidatos})
