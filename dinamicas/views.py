@@ -7,6 +7,8 @@ from accounts.models import UserProfile
 
 @login_required
 def dinamicas(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+
     if request.user.profile.user_type == 'membro':
         if request.method == 'POST':
             disponibilidades = request.POST.getlist('disponibilidades[]')
@@ -52,7 +54,7 @@ def dinamicas(request):
             return render(request, 'dinamicas.html', {
                 'mensagem': mensagem_inscricao,
                 'is_membro': False,
-                'status_aprovacao': status_aprovacao
+                'user_profile': user_profile
             })
 
         if request.method == 'POST':
@@ -83,7 +85,7 @@ def dinamicas(request):
         return render(request, 'dinamicas.html', {
             'disponibilidades': disponibilidades, 
             'is_membro': False,
-            'status_aprovacao': status_aprovacao
+            'user_profile': user_profile
             })
     
     else:
@@ -98,11 +100,12 @@ def aprovar_candidatos(request):
     if request.method == 'POST':
         aprovados = request.POST.getlist('aprovados')  # IDs dos candidatos aprovados
         for candidato in UserProfile.objects.filter(user_type='candidato'):
-            if str(candidato.id) in aprovados:
-                candidato.status_aprovacao = 'aprovado'  # Marcar como aprovado
-            else:
-                candidato.status_aprovacao = 'reprovado'  # Marcar como reprovado
-            candidato.save()
+            status = request.POST.get(f'status_{candidato.id}')
+            if status:
+                candidato.status_aprovacao = status
+                candidato.save()
+        messages.success(request, "Alterações salvas com sucesso!")
+        return redirect('aprovar_candidatos')
 
         return redirect('aprovar_candidatos') # Redirecione após salvar
 

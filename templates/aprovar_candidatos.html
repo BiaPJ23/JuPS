@@ -25,13 +25,32 @@ Aprovação de Candidatos
                     <tr>
                         <th>Candidato</th>
                         <th>Aprovado</th>
+                        <th>Reprovado</th>
+                        <th>Dúvida</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for candidato in candidatos %}
                     <tr>
                         <td>{{ candidato.user.get_full_name }}</td>
-                        <td><input type="checkbox" name="aprovados" value="{{ candidato.id }}"></td>
+                        <td>
+                            <input 
+                                type="radio" 
+                                name="status_{{ candidato.id }}" 
+                                value="aprovado">
+                        </td>
+                        <td>
+                            <input 
+                                type="radio" 
+                                name="status_{{ candidato.id }}" 
+                                value="reprovado">
+                        </td>
+                        <td>
+                            <input 
+                                type="radio" 
+                                name="status_{{ candidato.id }}" 
+                                value="pendente">
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -39,5 +58,6 @@ Aprovação de Candidatos
             <button type="submit">Salvar Alterações</button>
         </form>
     </div>
+    
 </div>
 {% endblock content %}
