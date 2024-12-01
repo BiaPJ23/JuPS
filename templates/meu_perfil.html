@@ -53,8 +53,28 @@ Perfil
             <br>
             <a href="{% url 'editar_perfil' %}">Editar informações</a>
         </div>
-    
+        
+        <!-- Formulário de feedback para membros -->
+        {% if is_membro %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="login-button">Enviar</button>
+            </form>
+            {% if message %}
+                <p class="success-message">{{ message }}</p>
+            {% endif %}
+        {% else %}
+        <!-- Exibição de feedbacks para candidatos -->
+            <div class="feedback-box">
+                <h3>Feedback da dinâmica</h3>
+                <p>{{ profile.feedback_dinamica|default:"Mensagem não disponível" }}</p>
+            </div>
+            <div class="feedback-box">
+                <h3>Feedback da entrevista</h3>
+                <p>{{ profile.feedback_entrevista|default:"Mensagem não disponível" }}</p>
+            </div>
+        {% endif %}
     </div>
-    
 </div>
 {% endblock content %}

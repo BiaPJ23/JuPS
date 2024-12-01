@@ -4,7 +4,7 @@ from django.urls import reverse
 from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Aviso
-from .forms import AvisoInternoForm, AvisoExternoForm, UserProfileForm
+from .forms import AvisoInternoForm, AvisoExternoForm, UserProfileForm, FeedbackForm
 
 @login_required
 def avisos_dashboard(request):
@@ -98,7 +98,29 @@ def entrevistas(request):
 @login_required
 def meu_perfil(request):
     user_profile = request.user.profile
-    return render(request, 'meu_perfil.html', {'user_profile': user_profile})
+    is_membro = user_profile.user_type == 'membro'
+
+    if is_membro and request.method == 'POST':
+        form = FeedbackForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            message = "Feedback enviado com sucesso!"
+        else:
+            message = "Erro ao enviar o feedback."
+    else:
+        form = FeedbackForm(instance=user_profile)
+        message = None
+
+    context = {
+        'profile': user_profile,
+        'form': form,
+        'is_membro': is_membro,
+        'message': message,
+    }
+    context.update({'user_profile': user_profile})
+
+    return render(request, 'meu_perfil.html', context)
+
 
 @login_required
 def editar_perfil(request):

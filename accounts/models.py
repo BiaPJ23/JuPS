@@ -19,6 +19,9 @@ class UserProfile(models.Model):
     data_nascimento = models.DateField(verbose_name="Data de Nascimento")
     telefone = models.CharField(max_length=15, verbose_name="Telefone")
 
+    feedback_dinamica = models.TextField(null=True, blank=True)
+    feedback_entrevista = models.TextField(null=True, blank=True)
+    
     USER_TYPES = (
         ('membro', 'Membro'),
         ('candidato', 'Candidato'),

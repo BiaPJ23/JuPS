@@ -624,17 +624,23 @@ input[type="checkbox"] {
     border: none;
 }
 
-.feedbacks {
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
+.feedback-box {
+    background-color: #d3d3d3;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 15px 0;
 }
 
-.feedback-box {
-    width: 100%;
-    height: 150px;
-    background-color: #555;
-    border-radius: 5px;
+/* Estilo para o título */
+.feedback-box h3 {
+    margin-top: 0;
+    color: #000; /* Títulos em preto (se necessário) */
+}
+
+/* Estilo para o texto */
+.feedback-box p {
+    color: #000; /* Texto dentro da caixa em preto */
 }
 
 .editar-perfil a {

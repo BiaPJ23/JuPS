@@ -81,28 +81,17 @@ class AvisoExternoForm(forms.ModelForm):
             }),
         }
 
-class FeedbackDinâmica(forms.ModelForm):
+class FeedbackForm(forms.ModelForm):
     class Meta:
-        model = Aviso
-        fields = ['conteudo']
-        widgets = {
-            'conteudo': forms.Textarea(attrs={
-                'class': 'form-control',
-                'rows': 4,
-                'placeholder': 'Digite o aviso externo aqui...',
-            }),
+        model = UserProfile
+        fields = ['feedback_dinamica', 'feedback_entrevista']
+        labels = {
+            'feedback_dinamica': 'Feedback da dinâmica:',
+            'feedback_entrevista': 'Feedback da entrevista:',
         }
-
-class FeedbackEntrevista(forms.ModelForm):
-    class Meta:
-        model = Aviso
-        fields = ['conteudo']
         widgets = {
-            'conteudo': forms.Textarea(attrs={
-                'class': 'form-control',
-                'rows': 4,
-                'placeholder': 'Digite o aviso externo aqui...',
-            }),
+            'feedback_dinamica': forms.Textarea(attrs={'placeholder': 'Escreva o feedback da dinâmica'}),
+            'feedback_entrevista': forms.Textarea(attrs={'placeholder': 'Escreva o feedback da entrevista'}),
         }
 
 class UserProfileForm(forms.ModelForm):
