@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from .models import Disponibilidade, Dinamica
+from .models import Disponibilidade, Dinamica, ForumDinamica
 from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from accounts.models import UserProfile
+from .forms import DuvidasDinamicas
 
 @login_required
 def dinamicas(request):
@@ -111,4 +112,25 @@ def aprovar_dinamicas(request):
         return redirect('aprovar_dinamicas')
 
     return render(request, 'aprovar_dinamicas.html', {'candidatos': candidatos})
+
+
+@login_required
+def forum_dinamica(request):
+    if request.method == 'POST':
+        form_dinamica = DuvidasDinamicas(request.POST)
+        if form_dinamica.is_valid():
+            duvida = form_dinamica.save(commit=False)
+            duvida.autor = request.user
+            duvida.save()
+            return redirect('forum_dinamica')
+
+    
+    duvidas_dinamica_lista = ForumDinamica.objects.all()
+    context = {
+        'form_dinamica': form_dinamica,
+        'duvidas_dinamica_lista': duvidas_dinamica_lista,
+    }
+    return render(request, 'dinamicas.html', context)
+                             
+
 

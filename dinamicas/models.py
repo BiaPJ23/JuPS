@@ -15,3 +15,12 @@ class Dinamica(models.Model):
 
     def __str__(self):
         return f"Dinamica em {self.horario.data} às {self.horario.hora}"
+    
+
+class ForumDinamica(models.Model):
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)  # Usuário que publicou a mensagem
+    texto = models.TextField()
+    data = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.autor.username} - {self.texto[:20]}'

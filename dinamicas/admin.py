@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Disponibilidade, Dinamica
+from .models import Disponibilidade, Dinamica, ForumDinamica
 
 @admin.register(Disponibilidade)
 class DisponibilidadeAdmin(admin.ModelAdmin):
@@ -9,3 +9,5 @@ class DisponibilidadeAdmin(admin.ModelAdmin):
 class DinamicaAdmin(admin.ModelAdmin):
     list_display = ('horario', )
     filter_horizontal = ('candidatos',)
+
+admin.site.register(ForumDinamica)
