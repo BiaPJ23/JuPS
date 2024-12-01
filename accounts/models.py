@@ -73,3 +73,11 @@ class Aviso(models.Model):
 
     def __str__(self):
         return f"{self.tipo.capitalize()} - {self.conteudo[:20]}..."
+    
+class MensagemChat(models.Model):
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    mensagem = models.TextField()
+    data_hora = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.autor.first_name}: {self.mensagem[:30]}..."

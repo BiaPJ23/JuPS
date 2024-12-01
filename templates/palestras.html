@@ -20,6 +20,10 @@ Página Palestras
     <div class="main-content">
         {% if user.profile.user_type == 'membro' %}
             <!-- Tela para membros: Aprovação de candidatos -->
+             <h2>Datas e horários de palestra:</h2>
+                <p>10/08 às 18h - presencial </p>
+                <p>12/08 às 17h - presencial</p>
+                <p>18/08 às 14h - online</p>
             <div class="editar-perfil">
                 <br>
                 <a href="{% url 'palestras:aprovar_palestras' %}" class="btn btn-primary">Aprovação Candidatos Palestra</a>
@@ -54,7 +58,12 @@ Página Palestras
             {% if message %}
                 <p class="success-message">{{ message }}</p>
             {% endif %}
+
         {% endif %}
+        <!-- Vísivel para membros e candidatos-->
+        <br>
+        <br>
+        <a href="{% url 'palestras:chat_duvidas' %}" class="login-button">Chat de Dúvidas</a>
     </div>
 </div>
 {% endblock content %}

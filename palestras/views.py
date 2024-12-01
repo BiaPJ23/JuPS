@@ -5,6 +5,8 @@ from .models import Palestra, Selecao
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from accounts.models import UserProfile
+from accounts.models import MensagemChat
+from accounts.forms import ChatForm
 
 # Create your views here.
 def list_palestras(request):
@@ -48,3 +50,23 @@ def aprovar_palestras(request):
         return redirect('palestras:aprovar_palestras')
 
     return render(request, 'aprovar_palestras.html', {'candidatos': candidatos})
+
+@login_required
+def chat_duvidas(request):
+    if request.method == 'POST':
+        form = ChatForm(request.POST)
+        if form.is_valid():
+            mensagem = form.save(commit=False)
+            mensagem.autor = request.user
+            mensagem.save()
+            messages.success(request, "Sua mensagem foi enviada!")
+            return redirect('palestras:chat_duvidas')
+    else:
+        form = ChatForm()
+
+    mensagens = MensagemChat.objects.all().order_by('-data_hora')  # Mensagens mais recentes primeiro
+    context = {
+        'form': form,
+        'mensagens': mensagens,
+    }
+    return render(request, 'palestras/chat_duvidas.html', context)

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Chat de Dúvidas
+{% endblock title %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="navbar">
+        <div>
+            <a href="{% url 'avisos_dashboard' %}">Início</a>
+            <a href="{% url 'palestras' %}">Palestras</a>
+            <a href="{% url 'dinamicas' %}">Dinâmicas</a>
+            <a href="{% url 'entrevistas' %}">Entrevista</a>
+            <a href="{% url 'meu_perfil' %}">Meu perfil</a>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="chat-container">
+            <h2>Chat de Dúvidas</h2>
+            
+            <!-- Formulário de Envio -->
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="login-button">Enviar</button>
+            </form>
+            
+            <!-- Mensagens do Chat -->
+            <div class="mensagens-list">
+                <h3>Mensagens:</h3>
+                {% for mensagem in mensagens %}
+                    <div class="mensagem-item">
+                        <p>{{ mensagem.mensagem }}</p>
+                        <small>Por {{ mensagem.autor.first_name }} em {{ mensagem.data_hora|date:"d/m/Y H:i" }}</small>
+                    </div>
+                {% empty %}
+                    <p>Ainda não há mensagens no chat.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import UserProfile
 from .models import Aviso
+from .models import MensagemChat
 
 class CustomUserCreationForm(UserCreationForm):
     full_name = forms.CharField(
@@ -116,4 +117,15 @@ class UserProfileForm(forms.ModelForm):
             'genero': 'Gênero',
             'data_nascimento': 'Data de Nascimento',
             'telefone': 'Telefone de Contato',
+        }
+
+class ChatForm(forms.ModelForm):
+    class Meta:
+        model = MensagemChat
+        fields = ['mensagem']
+        widgets = {
+            'mensagem': forms.Textarea(attrs={'rows': 2, 'placeholder': 'Digite sua dúvida aqui...'}),
+        }
+        labels = {
+            'mensagem': '',
         }
